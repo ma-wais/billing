@@ -1,0 +1,33 @@
+.item-form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .item-form input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .item-form input:focus {
+    border-color: #007bff;
+  }
+  
+  .search-input {
+    width: 300px;
+  }
+  .inputs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .price-input,
+  .qty-input,
+  .disc-input,
+  .stock-input,
+  .qty-pack-input {
+    width: 80px;
+    text-align: right;
+  }

@@ -1,33 +1,129 @@
 .item-form {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.item-form input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.item-form input:focus {
+  border-color: #007bff;
+}
+
+.search-input {
+  width: 300px;
+}
+
+.inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.price-input,
+.qty-input,
+.disc-input,
+.stock-input,
+.qty-pack-input {
+  width: 80px;
+  text-align: right;
+}
+
+.list-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #0056b3;
+
+  .list{
+    width: 60%;
   }
-  
-  .item-form input {
+}
+
+.billing-form {
+  width: 30%;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+table{
+  border: 1px solid #ccc;
+  width: 100%;
+}
+.form-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group label {
+  flex: 1;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.form-group input {
+  flex: 2;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.net-price {
+  background-color: #e0f7fa;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.form-actions button:hover {
+  background-color: #0056b3;
+}
+
+.info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px;
+
+  input{
     padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     outline: none;
+    border-radius: 5px;
+    border: none;
+    width: 180px;
   }
   
-  .item-form input:focus {
-    border-color: #007bff;
+  select{
+    padding: 5px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
   }
-  
-  .search-input {
-    width: 300px;
-  }
-  .inputs{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .price-input,
-  .qty-input,
-  .disc-input,
-  .stock-input,
-  .qty-pack-input {
-    width: 80px;
-    text-align: right;
-  }
+}

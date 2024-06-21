@@ -8,7 +8,7 @@ const Header = () => {
       <h1>Heal Pharmacy (Sales)</h1>
       <div>
         <Link to='/'>Sales</Link>
-        <Link to='/'>List</Link>
+        <Link to='/list'>List</Link>
         <Link to='/'>Return</Link>
         <Link to='/'>Return List</Link>
         <Link to='/'>Stock</Link>

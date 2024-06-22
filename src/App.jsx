@@ -4,7 +4,11 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import './app.css'  
 import List from './pages/List'
-
+import Return from './pages/Return'
+import ReturnList from './pages/ReturnList'
+import Stock from './pages/Stock'
+import Reprint from './pages/Reprint'
+import Change from './pages/Change'
 
 const App = () => {
   return (
@@ -13,6 +17,11 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/list' element={<List />} />
+        <Route path='/return' element={<Return />} />
+        <Route path='/returnlist' element={<ReturnList />} />
+        <Route path='/stock' element={<Stock />} />
+        <Route path='/reprint' element={<Reprint />} />
+        <Route path='/change' element={<Change />} />
       </Routes>
     </BrowserRouter>
   )

@@ -9,13 +9,12 @@ const Header = () => {
       <div>
         <Link to='/'>Sales</Link>
         <Link to='/list'>List</Link>
-        <Link to='/'>Return</Link>
-        <Link to='/'>Return List</Link>
-        <Link to='/'>Stock</Link>
-        <Link to='/'>reprint</Link>
-        <Link to='/'>Change Password</Link>
-        <Link to='/'>Logout</Link>
-
+        <Link to='/return'>Sale Return</Link>
+        <Link to='/returnlist'>Return List</Link>
+        <Link to='/stock'>Stock</Link>
+        <Link to='/reprint'>reprint</Link>
+        <Link to='/change'>Change Password</Link>
+        <button style={{marginLeft:"5px"}}>Logout</button>
       </div>
     </div>
   )

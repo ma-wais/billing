@@ -10,7 +10,17 @@ const List = () => {
     customerPhone: '',
   });
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{
+    date: '06/20/2024',
+    sale: '001',
+    loginName: 'user1',
+    salesmanName: 'John Doe',
+    customerName: 'Jane Smith',
+    saleValue: '100.00',
+    discount: '5.00',
+    netValue: '95.00',
+    action: 'View',
+  }]);
 
   const handleChange = (e) => {
     setFormData({

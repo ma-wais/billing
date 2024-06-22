@@ -1,5 +1,6 @@
 import React from 'react'
 import './change.scss'
+
 const Change = () => {
   return (
     <div className='change'>

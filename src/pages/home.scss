@@ -10,12 +10,8 @@
   outline: none;
 }
 
-.item-form input:focus {
-  border-color: #007bff;
-}
-
 .search-input {
-  width: 300px;
+  width: 280px;
 }
 
 .inputs {
@@ -30,25 +26,25 @@
 .disc-input,
 .stock-input,
 .qty-pack-input {
-  width: 80px;
+  width: 70px;
   text-align: right;
 }
 
 .list-container {
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 10px;
   padding: 10px;
-  background-color: #0056b3;
+  border-radius: 10px;
+  background-color: #ffffff;
 
   .list{
-    width: 60%;
+    width: 65%;
   }
 }
 
 .billing-form {
   width: 30%;
-  margin: 0 auto;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -66,7 +62,7 @@ table{
 
 .form-group label {
   flex: 1;
-  text-align: right;
+  text-align: left;
   padding-right: 10px;
 }
 
@@ -78,29 +74,16 @@ table{
   text-align: right;
 }
 
-.net-price {
-  background-color: #e0f7fa;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
 .form-actions button {
-  flex: 1;
   padding: 10px;
   margin: 5px;
-  border: none;
   border-radius: 4px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
 }
 
-.form-actions button:hover {
+button:hover {
   background-color: #0056b3;
 }
 

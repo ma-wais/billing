@@ -44,7 +44,7 @@ const Return = () => {
         </form>
       </div>
       <div className="list-container">
-        <div style={{ width: "72%" }} className="list">
+        <div style={{ width: "75%" }} className="list">
           <table>
             <thead>
               <tr>
@@ -57,11 +57,12 @@ const Return = () => {
             </thead>
           </table>
         </div>
-        <div style={{ width: "20%" }} className="billing-form">
+        <div style={{ width: "20%", minWidth: "150px" }} className="billing-form">
           <form>
             <div className="form-group">
               <label>Total Amount</label>
               <input
+                style={{width: '120px'}}
                 type="number"
                 value={totalAmount}
                 onChange={(e) => setTotalAmount(Number(e.target.value))}
@@ -70,15 +71,15 @@ const Return = () => {
             </div>
             <div className="form-group">
               <label>Discount Percent</label>
-              <input type="number" value={discountPrice} readOnly />
+              <input style={{width: '120px'}} type="number" value={discountPrice} readOnly />
             </div>
             <div className="form-group">
               <label>Discount Price</label>
-              <input type="number" value={netPrice} readOnly />
+              <input style={{width: '120px'}} type="number" value={netPrice} readOnly />
             </div>
             <div className="form-group">
               <label>Price after discount</label>
-              <input type="number" value={change} readOnly />
+              <input style={{width: '120px'}} type="number" value={change} readOnly />
             </div>
           </form>
         </div>

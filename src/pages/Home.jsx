@@ -68,7 +68,6 @@ const Home = () => {
               </tr>
             </thead>
           </table>
-
         </div>
         <div className="billing-form">
           <div>

@@ -1,5 +1,6 @@
 .item-form {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -10,8 +11,9 @@
   outline: none;
 }
 
-.search-input {
+.basic-single {
   width: 280px;
+  font-size: 12px;
 }
 
 .inputs {
@@ -27,7 +29,6 @@
 .stock-input,
 .qty-pack-input {
   width: 70px;
-  text-align: right;
 }
 
 .list-container {

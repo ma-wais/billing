@@ -10,6 +10,9 @@ import Stock from './pages/Stock'
 import Reprint from './pages/Reprint'
 import Change from './pages/Change'
 
+export const server = 'http://localhost:4000/api/v1';
+
+
 const App = () => {
   return (
     <BrowserRouter>

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './list.scss';
+import { server } from '../App';  // Assuming you have this import
 
 const List = () => {
   const [formData, setFormData] = useState({
@@ -10,17 +12,9 @@ const List = () => {
     customerPhone: '',
   });
 
-  const [data, setData] = useState([{
-    date: '06/20/2024',
-    sale: '001',
-    loginName: 'user1',
-    salesmanName: 'John Doe',
-    customerName: 'Jane Smith',
-    saleValue: '100.00',
-    discount: '5.00',
-    netValue: '95.00',
-    action: 'View',
-  }]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -29,28 +23,31 @@ const List = () => {
     });
   };
 
-  const handleSearch = () => {
-    const dummyData = [
-      {
-        date: '06/20/2024',
-        sale: '001',
-        loginName: 'user1',
-        salesmanName: 'John Doe',
-        customerName: 'Jane Smith',
-        saleValue: '100.00',
-        discount: '5.00',
-        netValue: '95.00',
-        action: 'View',
-      },
-      // Add more dummy data as needed
-    ];
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const queryParams = new URLSearchParams({
+        from: formData.fromDate,
+        to: formData.toDate,
+        invoiceref: formData.invoiceRef,
+        customername: formData.customerName,
+        customerphone: formData.customerPhone
+      }).toString();
 
-    setData(dummyData);
+      const response = await axios.get(`${server}/purchase/sales?${queryParams}`);
+      setData(response.data);
+    } catch (err) {
+      setError('An error occurred while fetching data');
+      console.error('Error fetching data:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="search-form-container">
-      <form className="search-form">
+      <form className="search-form" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <label>From Date</label>
           <input type="date" name="fromDate" value={formData.fromDate} onChange={handleChange} />
@@ -71,8 +68,12 @@ const List = () => {
           <label>Customer Phone</label>
           <input type="text" name="customerPhone" value={formData.customerPhone} onChange={handleChange} />
         </div>
-        <button type="button" onClick={handleSearch}>Search</button>
+        <button type="button" onClick={handleSearch} disabled={loading}>
+          {loading ? 'Searching...' : 'Search'}
+        </button>
       </form>
+
+      {error && <p className="error-message">{error}</p>}
 
       <table className="result-table">
         <thead>
@@ -80,31 +81,31 @@ const List = () => {
             <th>Date</th>
             <th>Sale#</th>
             <th>Login Name</th>
-            <th>Salesman Name</th>
             <th>Customer Name</th>
             <th>Sale Value</th>
             <th>Discount</th>
             <th>Net Value</th>
-            <th>Action</th>
+            {/* <th>Action</th> */}
           </tr>
         </thead>
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan="9">No record found</td>
+              <td colSpan="8">No record found</td>
             </tr>
           ) : (
-            data.map((item, index) => (
-              <tr key={index}>
-                <td>{item.date}</td>
-                <td>{item.sale}</td>
-                <td>{item.loginName}</td>
-                <td>{item.salesmanName}</td>
+            data.map((item) => (
+              <tr key={item._id}>
+                <td>{new Date(item.date).toLocaleDateString()}</td>
+                <td>{item.invoiceRef}</td>
+                <td>{item.user}</td>
                 <td>{item.customerName}</td>
-                <td>{item.saleValue}</td>
-                <td>{item.discount}</td>
-                <td>{item.netValue}</td>
-                <td>{item.action}</td>
+                <td>{item.totalAmount.toFixed(2)}</td>
+                <td>{item.discountPrice.toFixed(2)}</td>
+                <td>{item.netPrice.toFixed(2)}</td>
+                {/* <td>
+                  <button onClick={() => console.log('View details', item._id)}>View</button>
+                </td> */}
               </tr>
             ))
           )}

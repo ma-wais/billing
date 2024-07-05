@@ -10,7 +10,7 @@ import Stock from './pages/Stock'
 import Reprint from './pages/Reprint'
 import Change from './pages/Change'
 
-export const server = 'http://localhost:4000/api/v1';
+export const server = 'https://billing-api-1.onrender.com/api/v1';
 
 
 const App = () => {

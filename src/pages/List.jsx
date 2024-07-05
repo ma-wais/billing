@@ -34,12 +34,23 @@ const List = () => {
         customername: formData.customerName,
         customerphone: formData.customerPhone
       }).toString();
-
+  
       const response = await axios.get(`${server}/purchase/sales?${queryParams}`);
-      setData(response.data);
+      
+      // Check if response.data is an array, if not, look for a nested array
+      if (Array.isArray(response.data)) {
+        setData(response.data);
+      } else if (response.data && Array.isArray(response.data.sales)) {
+        setData(response.data.sales);
+      } else {
+        console.error('Unexpected data structure:', response.data);
+        setData([]);
+        setError('Received unexpected data format from server');
+      }
     } catch (err) {
       setError('An error occurred while fetching data');
       console.error('Error fetching data:', err);
+      setData([]);
     } finally {
       setLoading(false);
     }

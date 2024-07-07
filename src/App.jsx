@@ -12,7 +12,6 @@ import Change from './pages/Change'
 
 export const server = 'https://billing-api-1.onrender.com/api/v1';
 
-
 const App = () => {
   return (
     <BrowserRouter>

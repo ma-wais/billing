@@ -3,6 +3,7 @@ import "./home.scss";
 import axios from "axios";
 import Select from "react-select";
 import { server } from "../App";
+import { CgClose } from "react-icons/cg";
 
 const Home = () => {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -46,7 +47,7 @@ const Home = () => {
   };
 
   const addItemToList = () => {
-    if (!selectedItem || quantity <= 0) return;
+    if (!selectedItem || quantity <= 0) return alert("Please select an item and enter a quantity");
 
     const salePrice = selectedItem.retailPrice;
     const originalTotal = salePrice * quantity;
@@ -157,6 +158,7 @@ const Home = () => {
                 <td style={{ width: "7%" }}>Qty</td>
                 <td style={{ width: "7%" }}>Rate</td>
                 <td style={{ width: "6%" }}>Net</td>
+                <td style={{ width: "3%" }}>Action</td>
               </tr>
             </thead>
             <tbody>
@@ -166,6 +168,14 @@ const Home = () => {
                   <td>{item.quantity}</td>
                   <td>{item.salePrice}</td>
                   <td>{item.value - (item.discount * item.value / 100)}</td>
+                  <td style={{ textAlign: "center", cursor: "pointer" }}
+                    onClick={() => {
+                      setItemList(itemList.filter((i) => i !== item));
+                      setTotalAmount(totalAmount - item.value);
+                    }}
+                  >
+                    <CgClose color="red" />
+                  </td>
                 </tr>
               ))}
             </tbody>

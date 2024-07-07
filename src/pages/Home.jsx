@@ -3,6 +3,7 @@ import "./home.scss";
 import axios from "axios";
 import Select from "react-select";
 import { server } from "../App";
+import { CgClose } from "react-icons/cg";
 
 const Home = () => {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -23,7 +24,9 @@ const Home = () => {
 
   useEffect(() => {
     fetchItems();
-  }, []);
+    console.log(itemList);
+
+  }, [itemList]);
 
   const fetchItems = async () => {
     try {
@@ -50,13 +53,14 @@ const Home = () => {
   };
 
   const addItemToList = () => {
-    if (!selectedItem || quantity <= 0) return;
+    if (!selectedItem || quantity <= 0) return alert("Please select an item and enter a quantity");
 
     const salePrice = selectedItem.retailPrice;
     const originalTotal = salePrice * quantity;
-    const discountAmount = ((selectedItem.retailPrice * quantity) * discountPercent) / 100;
+    const discountAmount =
+      (selectedItem.retailPrice * quantity * discountPercent) / 100;
     const finalTotal = originalTotal - discountAmount;
-  
+
     const newItem = {
       name: selectedItem.itemName,
       code: selectedItem.itemCode,
@@ -68,9 +72,9 @@ const Home = () => {
       stock: selectedItem.stock,
       quantityPerPack: selectedItem.quantityPerPack,
       value: selectedItem.retailPrice * quantity,
-      pricePercentage: calculatePricePercentage(originalTotal, finalTotal)
+      pricePercentage: calculatePricePercentage(originalTotal, finalTotal),
     };
-  
+
     setItemList([...itemList, newItem]);
     setTotalAmount(totalAmount + finalTotal);
     setSelectedItem(null);
@@ -103,7 +107,6 @@ const Home = () => {
 
       const response = await axios.post(`${server}/purchase/sales`, saleData);
       console.log("Sale saved:", response.data);
-      // Reset form or navigate to a new page
 
       setItemList([]);
       setTotalAmount(0);
@@ -120,7 +123,6 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="inputs">
         <form className="item-form" onSubmit={(e) => e.preventDefault()}>
           <Select
             className="basic-single"
@@ -135,24 +137,28 @@ const Home = () => {
             className="price-input"
             value={selectedItem?.retailPrice || ""}
           />
-          <label htmlFor="qty">Qty</label>
-          <input
-            type="number"
-            min={0}
-            id="qty"
-            placeholder="Qty"
-            className="qty-input"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
-          <label htmlFor="disc">Disc. %</label>
-          <input
-            type="number"
-            placeholder="Disc."
-            id="disc"
-            className="disc-input"
-            onChange={(e) => setDiscountPercent(e.target.value)}
-          />
+          <div className="row-inputs">
+            <label htmlFor="qty">Qty</label>
+            <input
+              type="number"
+              min={0}
+              id="qty"
+              placeholder="Qty"
+              className="qty-input"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+          </div>
+          <div className="row-inputs">
+            <label htmlFor="disc">Disc. %</label>
+            <input
+              type="number"
+              placeholder="Disc."
+              id="disc"
+              className="disc-input"
+              onChange={(e) => setDiscountPercent(e.target.value)}
+            />
+          </div>
           <input
             type="number"
             placeholder="Stock"
@@ -169,7 +175,6 @@ const Home = () => {
           />
           <button onClick={addItemToList}>Add to table</button>
         </form>
-      </div>
       <div className="list-container">
         <div className="list">
           <table>
@@ -184,9 +189,10 @@ const Home = () => {
                 <td style={{ width: "5%" }}>Disc.</td>
                 <td style={{ width: "6%" }}>Net</td>
                 <td style={{ width: "7%" }}>P%</td>
+                <td style={{ width: "5%" }}>Action</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ marginTop: "10px" }}>
               {itemList.map((item, index) => (
                 <tr key={index}>
                   <td>{item.name}</td>
@@ -196,8 +202,16 @@ const Home = () => {
                   <td>{item.value}</td>
                   <td>{item.discount}%</td>
                   <td>{item.discountAmount}</td>
-                  <td>{item.value - (item.discount * item.value / 100)}</td>
+                  <td>{item.value - (item.discount * item.value) / 100}</td>
                   <td>{item.pricePercentage}%</td>
+                  <td style={{ textAlign: "center", cursor: "pointer" }}>
+                    <CgClose color="red"
+                      onClick={() => {
+                        setItemList(itemList.filter((i) => i !== item));
+                        setTotalAmount(totalAmount - item.value);
+                      }}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -270,23 +284,40 @@ const Home = () => {
       </div>
       <div className="info">
         <div>
-          <h4>Total Items:</h4> <input className="w40" type="text" value={itemList.length} readOnly />
+          <h4>Total Items:</h4>{" "}
+          <input className="w40" type="text" value={itemList.length} readOnly />
         </div>
         <div>
-          <h4>Customer: </h4> 
-          <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} />
+          <h4>Customer: </h4>
+          <input
+            type="text"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+          />
         </div>
         <div>
-          <h4>Customer Phone </h4> 
-          <input type="text" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} />
+          <h4>Customer Phone </h4>
+          <input
+            type="text"
+            value={customerPhone}
+            onChange={(e) => setCustomerPhone(e.target.value)}
+          />
         </div>
         <div>
-          <h4>Doctor Name </h4> 
-          <input type="text" value={doctorName} onChange={(e) => setDoctorName(e.target.value)} />
+          <h4>Doctor Name </h4>
+          <input
+            type="text"
+            value={doctorName}
+            onChange={(e) => setDoctorName(e.target.value)}
+          />
         </div>
         <div>
           <h4>User:(F7)</h4>
-          <select name="user" value={user} onChange={(e) => setUser(e.target.value)}>
+          <select
+            name="user"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+          >
             <option value="Abdullah">Abdullah</option>
             <option value="User2">User2</option>
             <option value="User3">User3</option>
